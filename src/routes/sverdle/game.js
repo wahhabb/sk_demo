@@ -3,6 +3,7 @@ import { words, allowed } from './words.server';
 export class Game {
 	/**
 	 * Create a game object from the player's cookie, or initialise a new game
+	 * @param {string | undefined} serialized
 	 */
 	constructor(serialized = undefined) {
 		if (serialized) {
@@ -14,7 +15,7 @@ export class Game {
 		} else {
 			this.index = Math.floor(Math.random() * words.length);
 			this.guesses = ['', '', '', '', '', ''];
-			this.answers = ([]);
+			this.answers = /** @type {string[]} */ ([]);
 		}
 
 		this.answer = words[this.index];
@@ -23,6 +24,7 @@ export class Game {
 	/**
 	 * Update game state based on a guess of a five-letter word. Returns
 	 * true if the guess was valid, false otherwise
+	 * @param {string[]} letters
 	 */
 	enter(letters) {
 		const word = letters.join('');
